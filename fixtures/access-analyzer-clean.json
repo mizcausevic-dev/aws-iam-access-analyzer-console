@@ -1,0 +1,28 @@
+{
+  "analyzers": [
+    {
+      "id": "analyzer-prod",
+      "name": "prod-perimeter",
+      "region": "us-east-1",
+      "type": "ACCOUNT",
+      "status": "ACTIVE",
+      "archiveRules": 3
+    }
+  ],
+  "findings": [
+    {
+      "id": "finding-resolved-lambda",
+      "resource": "arn:aws:lambda:us-east-1:111122223333:function:audited-webhook",
+      "resourceType": "LambdaFunction",
+      "region": "us-east-1",
+      "status": "RESOLVED",
+      "principal": "arn:aws:iam::111122223333:role/deploy",
+      "action": ["lambda:InvokeFunction"],
+      "conditionKeys": ["aws:SourceArn"],
+      "isPublic": false,
+      "isExternal": false,
+      "createdAt": "2026-05-20T00:00:00Z",
+      "lastSeenAt": "2026-05-24T00:00:00Z"
+    }
+  ]
+}

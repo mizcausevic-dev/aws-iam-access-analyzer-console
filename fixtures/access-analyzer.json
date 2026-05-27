@@ -1,0 +1,78 @@
+{
+  "analyzers": [
+    {
+      "id": "analyzer-prod",
+      "name": "prod-perimeter",
+      "region": "us-east-1",
+      "type": "ACCOUNT",
+      "status": "ACTIVE",
+      "archiveRules": 2
+    },
+    {
+      "id": "analyzer-ops",
+      "name": "ops-secondary",
+      "region": "us-west-2",
+      "type": "ACCOUNT",
+      "status": "DISABLED",
+      "archiveRules": 0
+    }
+  ],
+  "findings": [
+    {
+      "id": "finding-public-bucket",
+      "resource": "arn:aws:s3:::marketing-export-drop",
+      "resourceType": "S3Bucket",
+      "region": "us-east-1",
+      "status": "ACTIVE",
+      "principal": "*",
+      "action": ["s3:GetObject"],
+      "conditionKeys": [],
+      "isPublic": true,
+      "isExternal": true,
+      "createdAt": "2026-04-20T00:00:00Z",
+      "lastSeenAt": "2026-04-24T00:00:00Z"
+    },
+    {
+      "id": "finding-cross-account-role",
+      "resource": "arn:aws:iam::111122223333:role/vendor-billing-export",
+      "resourceType": "IAMRole",
+      "region": "us-east-1",
+      "status": "ACTIVE",
+      "principal": "arn:aws:iam::444455556666:root",
+      "action": ["sts:AssumeRole"],
+      "conditionKeys": [],
+      "isPublic": false,
+      "isExternal": true,
+      "createdAt": "2026-05-01T00:00:00Z",
+      "lastSeenAt": "2026-05-24T00:00:00Z"
+    },
+    {
+      "id": "finding-public-kms",
+      "resource": "arn:aws:kms:us-east-1:111122223333:key/abcd-1234",
+      "resourceType": "KMSKey",
+      "region": "us-east-1",
+      "status": "ACTIVE",
+      "principal": "*",
+      "action": ["kms:Decrypt"],
+      "conditionKeys": ["aws:PrincipalOrgID"],
+      "isPublic": true,
+      "isExternal": true,
+      "createdAt": "2026-05-18T00:00:00Z",
+      "lastSeenAt": "2026-05-24T00:00:00Z"
+    },
+    {
+      "id": "finding-resolved-lambda",
+      "resource": "arn:aws:lambda:us-west-2:111122223333:function:legacy-open-webhook",
+      "resourceType": "LambdaFunction",
+      "region": "us-west-2",
+      "status": "RESOLVED",
+      "principal": "arn:aws:iam::777788889999:root",
+      "action": ["lambda:InvokeFunction"],
+      "conditionKeys": ["aws:SourceArn"],
+      "isPublic": false,
+      "isExternal": true,
+      "createdAt": "2026-04-02T00:00:00Z",
+      "lastSeenAt": "2026-05-02T00:00:00Z"
+    }
+  ]
+}
