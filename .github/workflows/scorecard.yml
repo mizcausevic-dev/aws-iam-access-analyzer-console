@@ -10,14 +10,15 @@ name: OpenSSF Scorecard
 # Triggers:
 #   - branch_protection_rule (fires when branch protection config changes)
 #   - Weekly Saturday cron (keeps the score fresh as new checks ship)
-#   - Push to main (catches just-shipped regressions)
+#   - Push to the default project branch (catches just-shipped regressions)
 
 on:
   branch_protection_rule:
   schedule:
     - cron: "0 13 * * 6"
   push:
-    branches: [main]
+    branches: [project/aws-iam-access-analyzer-console]
+  workflow_dispatch:
 
 permissions:
   contents: read
