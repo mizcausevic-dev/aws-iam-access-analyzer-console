@@ -21,15 +21,17 @@ on:
 
 permissions:
   contents: read
-  security-events: write
-  id-token: write
-  actions: read
 
 jobs:
   analysis:
     name: Scorecard analysis
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    permissions:
+      contents: read
+      security-events: write
+      id-token: write
+      actions: read
     steps:
       - name: Checkout (full history needed by Scorecard)
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4

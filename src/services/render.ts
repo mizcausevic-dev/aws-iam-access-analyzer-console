@@ -211,14 +211,20 @@ function layout(title: string, active: string, body: string) {
       ${body}
       <div class="footer">
         <div>aws-iam-access-analyzer-console · synthetic sample data only</div>
-        <div>routes: / · /analyzer-lane · /finding-risks · /remediation-posture · /verification · /docs</div>
+        <div>
+          <a href="https://github.com/mizcausevic-dev/aws-iam-access-analyzer-console">GitHub</a> ·
+          <a href="https://portfolio.kineticgain.com/">Portfolio</a> ·
+          <a href="https://suite.kineticgain.com/">Suite</a> ·
+          <a href="https://www.linkedin.com/in/miz-causevic/">LinkedIn</a> ·
+          <a href="https://kineticgain.com/">Kinetic Gain</a>
+        </div>
       </div>
     </div>
   </body>
 </html>`;
 }
 
-function severityClass(value: string) {
+export function severityClass(value: string) {
   if (value === "high" || value === "red") return "red";
   if (value === "medium" || value === "yellow") return "yellow";
   if (value === "green" || value === "low") return "green";
@@ -247,6 +253,22 @@ export function renderOverview() {
           <div class="src"><div class="src-name">cloud perimeter</div><div class="src-tit">Clear public access first</div><p>${metrics.recommendation}</p></div>
           <div class="src"><div class="src-name">finding evidence</div><div class="src-tit">Turn exports into operator proof</div><p>Every lane stays tied to owner, trust or perimeter focus, finding severity, and the next concrete remediation move.</p></div>
           <div class="src"><div class="src-name">recruiter signal</div><div class="src-tit">Show real AWS admin depth</div><p>This is real AWS IAM / Access Analyzer / perimeter proof, not generic cloud copy.</p></div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="sh"><h2>Product depth</h2><div class="note">buyer value · technical proof · GTM story</div></div>
+        <div class="stack">
+          <div class="src"><div class="src-name">buyer value</div><div class="src-tit">Make AWS exposure readable</div><p>Security leaders can see which public buckets, external principals, stale findings, and analyzer coverage gaps create board-visible AWS exposure.</p></div>
+          <div class="src"><div class="src-name">technical proof</div><div class="src-tit">Parse real export shapes</div><p>The CLI and static renderer work from captured Access Analyzer-style JSON, preserving resource, principal, region, owner, severity, and remediation packet context.</p></div>
+          <div class="src"><div class="src-name">GTM story</div><div class="src-tit">A cloud-governance wedge</div><p>This gives Kinetic Gain an AWS IAM proof surface that complements Azure, Intune, GCP, and broader diligence narratives without needing live cloud credentials.</p></div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="sh"><h2>What these repos have in common</h2><div class="note">risk signal · owner context · evidence packet</div></div>
+        <div class="stack">
+          <div class="src"><div class="src-name">risk signal</div><div class="src-tit">Turn exports into exposure views</div><p>Raw analyzer findings become a shared perimeter-risk map instead of a buried AWS console report.</p></div>
+          <div class="src"><div class="src-name">owner context</div><div class="src-tit">Route work to accountable teams</div><p>Every issue stays attached to the platform, IAM, security, or compliance owner that can move the cleanup forward.</p></div>
+          <div class="src"><div class="src-name">evidence packet</div><div class="src-tit">Carry proof into decisions</div><p>The output is shaped for audit, diligence, incident review, and board-ready cleanup sequencing.</p></div>
         </div>
       </section>`
   );

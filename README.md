@@ -25,6 +25,33 @@ This repo demonstrates the AWS identity-and-perimeter control-plane primitive fo
 - offline-safe analysis of captured AWS IAM Access Analyzer exports
 - recruiter-facing AWS IAM / cloud security proof that complements the Microsoft admin lane
 
+## Product depth
+
+This is the AWS identity-and-perimeter slice of the Kinetic Gain platform-governance portfolio. A SaaS buyer, security leader, or diligence team should be able to answer three questions from this surface without opening the AWS console:
+
+- Which public or cross-account access paths create board-visible exposure?
+- Which analyzer coverage gaps make the reported AWS posture less trustworthy?
+- Which remediation packet should move first so platform, IAM, and compliance teams do not talk past each other?
+
+The repo is intentionally built from synthetic exports, but the operating model mirrors real enterprise review work: analyzer coverage, finding severity, owner routing, stale-risk pressure, and cleanup readiness all resolve into the same control plane.
+
+## What these repos have in common
+
+Kinetic Gain repo surfaces should not read like isolated demos. This one follows the common pattern used across the suite:
+
+- risk signal: convert raw system exports into a leadership-readable exposure view
+- owner context: tie each issue to the team that can actually move it
+- evidence packet: preserve the data shape needed for audit, diligence, or incident review
+- next action: show the remediation sequence instead of leaving users with another dashboard
+
+## Operating workflow
+
+1. Export or capture Access Analyzer findings from a controlled environment.
+2. Run the CLI or static analyzer against the JSON export.
+3. Review analyzer coverage, external trust, public access, and stale-finding pressure.
+4. Package the remediation posture for the platform owner, IAM owner, and compliance reviewer.
+5. Re-run after cleanup to prove the posture changed.
+
 ## Routes
 
 - `/`
