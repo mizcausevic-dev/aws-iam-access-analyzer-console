@@ -56,3 +56,24 @@ for (const [relativePath, data] of Object.entries(apiPayloads)) {
   fs.mkdirSync(path.dirname(fullPath), { recursive: true });
   fs.writeFileSync(fullPath, JSON.stringify(data, null, 2), "utf8");
 }
+
+// robots.txt/sitemap.xml were previously generated only by the GitHub Pages
+// workflow's inline shell step (.github/workflows/pages.yml), not by this
+// script - meaning any deploy that bypasses that specific CI job (including
+// a direct SSH publish) shipped with neither file. Generating them here too
+// so they exist regardless of which pipeline actually runs.
+fs.writeFileSync(
+  path.join(outputDir, "robots.txt"),
+  "User-agent: *\nAllow: /\nSitemap: https://aws.kineticgain.com/sitemap.xml\n",
+  "utf8"
+);
+
+const siteRoutes = ["/", "/analyzer-lane/", "/finding-risks/", "/remediation-posture/", "/verification/", "/docs/"];
+
+fs.writeFileSync(
+  path.join(outputDir, "sitemap.xml"),
+  `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${siteRoutes
+    .map((route) => `<url><loc>https://aws.kineticgain.com${route}</loc></url>`)
+    .join("")}</urlset>`,
+  "utf8"
+);
