@@ -25,6 +25,7 @@ function layout(title: string, active: string, body: string) {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>${title}</title>
+    <link rel="icon" href="/favicon.svg" />
     <style>
       :root{
         --bg:#070a0f; --panel:#0b1220; --panel2:#0a1426;
@@ -169,6 +170,27 @@ function layout(title: string, active: string, body: string) {
       a{color:inherit}
       code{font-family:var(--mono); font-size:12px; color:var(--bert2); background:rgba(25,199,255,.08); padding:1px 6px; border-radius:5px; border:1px solid rgba(25,199,255,.18);}
     </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "AWS IAM Analyzer",
+        "description": "Operator surface for AWS IAM Access Analyzer posture. Reads analyzer and finding JSON exports and surfaces public access, cross-account trust, disabled analyzers, stale active findings, and missing trust conditions. Library + CLI.",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "url": "https://aws.kineticgain.com/",
+        "publisher": {
+          "@type": "Organization",
+          "name": "Kinetic Gain LLC",
+          "url": "https://kineticgain.com/"
+        },
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Kinetic Gain",
+          "url": "https://kineticgain.com/"
+        }
+      }
+    </script>
   </head>
   <body>
     <div class="grid-bg"></div>

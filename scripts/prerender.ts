@@ -25,6 +25,7 @@ const outputDir = path.join(root, "site");
 fs.mkdirSync(outputDir, { recursive: true });
 fs.mkdirSync(path.join(outputDir, "api", "dashboard"), { recursive: true });
 fs.copyFileSync(path.join(root, "CNAME"), path.join(outputDir, "CNAME"));
+fs.copyFileSync(path.join(root, "favicon.svg"), path.join(outputDir, "favicon.svg"));
 
 const pages: Record<string, string> = {
   "index.html": renderOverview(),
