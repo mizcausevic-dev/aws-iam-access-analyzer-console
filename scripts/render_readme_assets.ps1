@@ -17,20 +17,24 @@ function New-ProofImage {
     $bitmap = New-Object System.Drawing.Bitmap 1600, 1000
     $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
     $graphics.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
-    $graphics.Clear([System.Drawing.Color]::FromArgb(7, 10, 15))
+    # Kinetic Gain BERT dark-cyan, same values as the :root block in src/services/render.ts.
+    $graphics.Clear([System.Drawing.Color]::FromArgb(11, 12, 16))          # --bg      #0B0C10
 
-    $panelBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(11, 18, 32))
-    $accentBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(55, 255, 139))
-    $altAccentBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(25, 199, 255))
-    $textBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(233, 243, 255))
-    $mutedBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(171, 186, 201))
-    $borderPen = New-Object System.Drawing.Pen([System.Drawing.Color]::FromArgb(42, 111, 88), 2)
+    $panelBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(31, 40, 51))      # --panel   #1F2833
+    $accentBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(102, 252, 241))  # --bert    #66FCF1
+    $altAccentBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(69, 162, 158))# --bert2   #45A29E
+    $textBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(234, 246, 245))    # --head    #EAF6F5
+    $mutedBrush = New-Object System.Drawing.SolidBrush([System.Drawing.Color]::FromArgb(153, 163, 173))   # --muted   #99A3AD
+    $borderPen = New-Object System.Drawing.Pen([System.Drawing.Color]::FromArgb(43, 58, 70), 2)           # --line    #2B3A46
 
     $graphics.FillRectangle($panelBrush, 48, 48, 1504, 904)
     $graphics.DrawRectangle($borderPen, 48, 48, 1504, 904)
 
     $eyebrowFont = New-Object System.Drawing.Font("Segoe UI", 16, [System.Drawing.FontStyle]::Bold)
-    $titleFont = New-Object System.Drawing.Font("Georgia", 34, [System.Drawing.FontStyle]::Bold)
+    # Sans heading: estate rule bans serif headings. Segoe UI is used (not Inter/Montserrat)
+    # because System.Drawing silently falls back to a default when a font is not installed
+    # locally, and Segoe UI is guaranteed present on the Windows box that renders these.
+    $titleFont = New-Object System.Drawing.Font("Segoe UI", 34, [System.Drawing.FontStyle]::Bold)
     $bodyFont = New-Object System.Drawing.Font("Segoe UI", 18)
     $bulletFont = New-Object System.Drawing.Font("Segoe UI", 20, [System.Drawing.FontStyle]::Bold)
 
@@ -40,7 +44,10 @@ function New-ProofImage {
 
     $y = 320
     foreach ($bullet in $Bullets) {
-        $graphics.DrawString("•", $bulletFont, $altAccentBrush, 108, $y)
+        # [char]0x2022 not a literal bullet: this file has no BOM, `powershell -File`
+        # (5.1) decodes it as Windows-1252, and the UTF-8 bullet rendered as "a€¢"
+        # in every committed PNG. Building the char from its code point is encoding-proof.
+        $graphics.DrawString([string][char]0x2022, $bulletFont, $altAccentBrush, 108, $y)
         $graphics.DrawString($bullet, $bodyFont, $textBrush, 138, $y + 2)
         $y += 82
     }

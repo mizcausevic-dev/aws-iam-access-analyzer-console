@@ -27,12 +27,16 @@ function layout(title: string, active: string, body: string) {
     <title>${title}</title>
     <link rel="icon" href="/favicon.svg" />
     <style>
+      /* Kinetic Gain BERT dark-cyan. Shared with kineticgain.com + suite.kineticgain.com.
+         Token names are unchanged; only the values moved. --plum is retained as a token
+         name but now resolves to the cyan accent: BERT has no violet, and a sixth hue
+         read as off-palette next to the rest of the estate. */
       :root{
-        --bg:#070a0f; --panel:#0b1220; --panel2:#0a1426;
-        --line:rgba(120,255,170,.18); --line2:rgba(120,255,170,.10);
-        --text:#e9f3ff; --muted:rgba(233,243,255,.72); --muted2:rgba(233,243,255,.55);
-        --bert:#37ff8b; --bert2:#19c7ff;
-        --warn:#ffcc66; --bad:#ff5c7a; --good:#37ff8b; --plum:#b88cff;
+        --bg:#0B0C10; --panel:#1F2833; --panel2:#161D26;
+        --line:#2B3A46; --line2:rgba(43,58,70,.55);
+        --text:#C5C6C7; --head:#EAF6F5; --muted:#99A3AD; --muted2:#8C98A2;
+        --bert:#66FCF1; --bert2:#45A29E; --on-accent:#0F172A;
+        --warn:#E0A43A; --bad:#F2495C; --good:#4ADE80; --plum:#66FCF1;
         --shadow: 0 18px 60px rgba(0,0,0,.55);
         --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
@@ -41,18 +45,21 @@ function layout(title: string, active: string, body: string) {
       html,body{height:100%}
       body{
         margin:0; font-family:var(--sans); color:var(--text);
-        background:
-          radial-gradient(1200px 600px at 20% -10%, rgba(55,255,139,.18), transparent 60%),
-          radial-gradient(900px 520px at 90% 0%, rgba(25,199,255,.16), transparent 55%),
-          radial-gradient(1000px 600px at 50% 110%, rgba(55,255,139,.10), transparent 60%),
-          linear-gradient(180deg, #05070c 0%, #070a0f 35%, #05070c 100%);
+        /* background-color is set separately so computed background-color resolves to
+           --bg instead of transparent. The old shorthand ended in a gradient IMAGE,
+           which left --bg dead and the real ground hardcoded. */
+        background-color: var(--bg);
+        background-image:
+          radial-gradient(1200px 600px at 20% -10%, rgba(102,252,241,.05), transparent 60%),
+          radial-gradient(900px 520px at 90% 0%, rgba(69,162,158,.05), transparent 55%),
+          radial-gradient(1000px 600px at 50% 110%, rgba(102,252,241,.04), transparent 60%);
         overflow-x:hidden;
       }
       .grid-bg{
         position:fixed; inset:0; pointer-events:none; opacity:.12; z-index:-1;
         background-image:
-          linear-gradient(to right, rgba(55,255,139,.14) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(55,255,139,.10) 1px, transparent 1px);
+          linear-gradient(to right, rgba(102,252,241,.10) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(102,252,241,.07) 1px, transparent 1px);
         background-size: 46px 46px;
         mask-image: radial-gradient(900px 600px at 40% 10%, #000 60%, transparent 100%);
       }
@@ -69,31 +76,31 @@ function layout(title: string, active: string, body: string) {
       .herorow{display:grid; grid-template-columns: 1.5fr .9fr; gap:18px}
       @media (max-width:1000px){.herorow{grid-template-columns:1fr}}
       .hero{
-        background: linear-gradient(180deg, rgba(11,18,32,.95), rgba(8,14,26,.92));
+        background: linear-gradient(180deg, var(--panel), var(--panel2));
         border:1px solid var(--line); border-radius:22px; padding:28px 28px 24px;
         box-shadow: var(--shadow); position:relative; overflow:hidden;
         border-top:2px solid var(--bert2);
       }
-      .hero h1{ font-size:64px; line-height:.95; margin:0 0 18px; letter-spacing:-.5px; font-weight:800; }
+      .hero h1{ font-size:64px; line-height:.95; margin:0 0 18px; letter-spacing:-.5px; font-weight:800; color:var(--head); }
       @media (max-width:700px){.hero h1{font-size:42px}}
       .hero p{color:var(--muted); font-size:15px; line-height:1.55; max-width:680px; margin:0 0 18px}
       .chiprow{display:flex; flex-wrap:wrap; gap:8px}
       .meta-chip{
         font-family:var(--mono); font-size:11px; color:var(--muted);
         padding:7px 12px; border-radius:999px; border:1px solid var(--line);
-        background:rgba(6,10,18,.4);
+        background:rgba(11,12,16,.55);
       }
       .navrow{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px}
       .navchip{
         font-family:var(--mono); font-size:12px; color:var(--muted);
         padding:10px 14px; border-radius:999px; border:1px solid var(--line);
-        background:rgba(6,10,18,.4); text-decoration:none;
+        background:rgba(11,12,16,.55); text-decoration:none;
       }
-      .navchip.active{color:#071017;background:linear-gradient(135deg,var(--bert),var(--bert2));font-weight:700}
+      .navchip.active{color:var(--on-accent);background:linear-gradient(135deg,var(--bert),var(--bert2));font-weight:700}
       .side{display:flex; flex-direction:column; gap:14px}
       .bluf{
         border:1px solid var(--warn); border-left:4px solid var(--warn);
-        background: linear-gradient(180deg, rgba(255,204,102,.06), rgba(11,18,32,.92));
+        background: linear-gradient(180deg, rgba(224,164,58,.08), var(--panel));
         border-radius:14px; padding:16px 18px;
       }
       .bluf .lbl, .corr .lbl{font-family:var(--mono); font-size:10px; letter-spacing:.18em; text-transform:uppercase}
@@ -101,7 +108,7 @@ function layout(title: string, active: string, body: string) {
       .bluf p, .corr p{color:var(--muted); font-size:13.5px; line-height:1.55; margin:6px 0 0}
       .corr{
         border:1px solid var(--bert); border-left:4px solid var(--bert);
-        background: linear-gradient(180deg, rgba(55,255,139,.06), rgba(11,18,32,.92));
+        background: linear-gradient(180deg, rgba(102,252,241,.08), var(--panel));
         border-radius:14px; padding:16px 18px;
       }
       .section{margin-top:34px}
@@ -109,14 +116,14 @@ function layout(title: string, active: string, body: string) {
         display:flex; justify-content:space-between; align-items:baseline; gap:14px;
         padding-bottom:10px; border-bottom:1px solid var(--line2); margin-bottom:14px;
       }
-      .sh h2{margin:0; font-size:24px; font-weight:600; letter-spacing:-.2px}
+      .sh h2{margin:0; font-size:24px; font-weight:600; letter-spacing:-.2px; color:var(--head)}
       .sh .note{font-family:var(--mono); font-size:11px; color:var(--muted2); letter-spacing:.16em; text-transform:uppercase}
       .kpis{display:grid; grid-template-columns: repeat(6, 1fr); gap:12px}
       @media (max-width:1100px){.kpis{grid-template-columns: repeat(3, 1fr)}}
       @media (max-width:640px){.kpis{grid-template-columns: repeat(2, 1fr)}}
       .kpi{
         border:1px solid var(--line); border-radius:14px; padding:14px 14px 12px;
-        background: linear-gradient(180deg, rgba(11,18,32,.85), rgba(8,14,26,.65));
+        background: linear-gradient(180deg, var(--panel), var(--panel2));
         position:relative; overflow:hidden;
       }
       .kpi .v{font-family:var(--mono); font-size:26px; font-weight:600; letter-spacing:-.5px}
@@ -128,10 +135,10 @@ function layout(title: string, active: string, body: string) {
       @media (max-width:640px){.stack{grid-template-columns: 1fr}}
       .src{
         border:1px solid var(--line); border-radius:16px; padding:16px;
-        background: linear-gradient(180deg, rgba(11,18,32,.85), rgba(8,14,26,.65));
+        background: linear-gradient(180deg, var(--panel), var(--panel2));
       }
       .src .src-name{font-family:var(--mono); font-size:11px; color:var(--bert); letter-spacing:.2em; text-transform:uppercase}
-      .src .src-tit{margin:8px 0 6px; font-size:17px; font-weight:600}
+      .src .src-tit{margin:8px 0 6px; font-size:17px; font-weight:600; color:var(--head)}
       .src p{margin:0; font-size:13px; color:var(--muted); line-height:1.55}
       .ttbl{
         width:100%; border-collapse:separate; border-spacing:0;
@@ -140,35 +147,40 @@ function layout(title: string, active: string, body: string) {
       .ttbl th, .ttbl td{padding:13px 14px; text-align:left; font-size:13.5px; vertical-align:top}
       .ttbl thead th{
         font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase;
-        color:var(--muted2); border-bottom:1px solid var(--line); background:rgba(11,18,32,.5);
+        color:var(--muted2); border-bottom:1px solid var(--line); background:var(--panel2);
       }
-      .ttbl tbody tr:hover{background:rgba(55,255,139,.03)}
+      .ttbl tbody tr:hover{background:rgba(102,252,241,.04)}
       .ttbl td, .ttbl td *{color:var(--muted)}
       .ttbl b{color:var(--text)}
-      .st{font-family:var(--mono); font-size:10px; padding:4px 9px; border-radius:6px; letter-spacing:.1em; text-transform:uppercase; border:1px solid currentColor; display:inline-block}
+      /* Opaque --bg fill: .st renders BOTH in .ttbl td (page ground) and inside .pcard
+         (lighter panel). Pinning the pill background makes its contrast independent of
+         the container, which is what keeps --bad #F2495C above 4.5:1 at 10px. */
+      .st{font-family:var(--mono); font-size:10px; padding:4px 9px; border-radius:6px; letter-spacing:.1em; text-transform:uppercase; border:1px solid currentColor; display:inline-block; background:var(--bg)}
       .st.red{color:var(--bad)} .st.yellow{color:var(--warn)} .st.green{color:var(--good)} .st.info{color:var(--bert2)}
       .board{display:grid; grid-template-columns: repeat(3,1fr); gap:14px}
       @media (max-width:1000px){.board{grid-template-columns: 1fr}}
       .pcard{
         border:1px solid var(--line); border-radius:16px; padding:18px 20px;
-        background: linear-gradient(180deg, rgba(11,18,32,.85), rgba(8,14,26,.65));
+        background: linear-gradient(180deg, var(--panel), var(--panel2));
         display:flex; flex-direction:column;
       }
       .pcard .ptop{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px}
       .pcard .pnum{font-family:var(--mono); font-size:22px; font-weight:600; color:var(--bert)}
-      .pcard .ppri{font-family:var(--mono); font-size:10px; padding:5px 10px; border-radius:999px; border:1px solid var(--line); color:var(--bert); letter-spacing:.14em; background:rgba(55,255,139,.06)}
-      .pcard h3{margin:6px 0 8px; font-size:19px; font-weight:600}
+      .pcard .ppri{font-family:var(--mono); font-size:10px; padding:5px 10px; border-radius:999px; border:1px solid var(--line); color:var(--bert); letter-spacing:.14em; background:rgba(102,252,241,.08)}
+      .pcard h3{margin:6px 0 8px; font-size:19px; font-weight:600; color:var(--head)}
       .pcard .pdesc{font-size:13.5px; color:var(--muted); line-height:1.55; margin:0 0 14px}
       .pcard ul.check{list-style:none; padding:0; margin:0 0 14px}
       .pcard ul.check li{display:grid; grid-template-columns: 18px 1fr; gap:10px; padding:6px 0; font-size:13.5px; color:var(--muted); line-height:1.45}
-      .pcard ul.check li:before{content:""; width:14px; height:14px; border:1px solid var(--line); border-radius:3px; background:rgba(6,10,18,.4); margin-top:3px;}
+      .pcard ul.check li:before{content:""; width:14px; height:14px; border:1px solid var(--line); border-radius:3px; background:rgba(11,12,16,.55); margin-top:3px;}
       .footer{
         margin-top:30px; padding-top:14px; border-top:1px dashed var(--line2);
         display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
         font-family:var(--mono); font-size:11px; color:var(--muted2); letter-spacing:.08em;
       }
       a{color:inherit}
-      code{font-family:var(--mono); font-size:12px; color:var(--bert2); background:rgba(25,199,255,.08); padding:1px 6px; border-radius:5px; border:1px solid rgba(25,199,255,.18);}
+      /* Same reason as .st: inline code sits on both the page ground and on panels.
+         A teal-tinted fill lifted the panel case to 4.24:1, under AA. --bg pins it. */
+      code{font-family:var(--mono); font-size:12px; color:var(--bert2); background:var(--bg); padding:1px 6px; border-radius:5px; border:1px solid rgba(69,162,158,.30);}
     </style>
     <script type="application/ld+json">
       {
